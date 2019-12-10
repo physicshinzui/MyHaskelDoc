@@ -1,0 +1,397 @@
+\section{Basics}
+
+\subsection{Hello world}
+
+Create \lstinline{main.hs} in which there is one line:
+\begin{lstlisting}
+main = putStrLn "Hello world"
+\end{lstlisting}
+\lstinline{putStrLn} is a function of string returning \lstinline{Hello world}, and then type this command to compile \lstinline{main.hs}:
+\begin{lstlisting}
+ghc main.hs
+\end{lstlisting}
+"\lstinline{main}" is then generated. 
+Q. if \lstinline{--make} option is added, what happens.?
+
+\subsection{Comment out}
+\begin{lstlisting}
+-- main = putStrLn "Hello world"
+\end{lstlisting}
+Just add \lstinline{--}  before a line.
+
+\subsection{Number}
+
+\begin{lstlisting}
+x :: Int
+y :: Double 
+x = 3
+y = 1
+\end{lstlisting}
+Variable name must start with a lower letter and its type with an upper one. "\lstinline{::}" is translated into "has type". Once any number is substituted into a variable,  the variable is not changeable (dubbed {\it immutable}) anymore. That's why "\lstinline{=}" is translated into "is defined by". Plus, Haskell infers a type of variables implicitly, so defining types are not mandatory.
+
+\subsection{Arithmetic}
+
+\begin{lstlisting}
+2^2 -- Latex-like. I like it.
+2*3
+10*(-1) -- not do 10*-1.
+10/(-2) -- not 10/-2
+\end{lstlisting}
+
+\subsection{Print}
+
+\subsection{One-liner and multiple lines}
+
+\begin{lstlisting}
+main = do { putStrLn "what number you wanna square?"; x <- readLn ;  print(x^2)} 
+\end{lstlisting}
+
+If you do not want to use one-linear, then write: 
+
+\begin{lstlisting}
+main = do putStrLn "what number you wanna square?" 
+           x <- readLn
+           print (x^2)
+\end{lstlisting}
+Note that subsequent lines must be aligned to the first letter of the word after “do”.
+In this case, “\lstinline{p}” in \lstinline{putStrLn} is the top to which \lstinline{x <- readLn} and \lstinline{print (x^2)} must be aligned. 
+This indent convention is called layout.
+
+\subsection{How the main function works}
+Try: 
+\begin{lstlisting}
+x = putStrLn "Hello world"
+\end{lstlisting}
+
+You’ll notice it causes an error and does not print off “\lstinline{Hello world}”. 
+This is because Haskell runs only one \lstinline{IO()} function, and main function can be served as \lstinline{IO()}. 
+So you’ve got to write:
+
+\begin{lstlisting}
+main :: IO() --expressed explicitly, but no need actually 
+x = putStrLn "Hello world"
+main = x 
+\end{lstlisting}
+(See \href{https://wiki.haskell.org/Introduction_to_Haskell_IO/Actions}{Haskell IO})
+
+\subsection{Lists}
+You can create a list in several ways:
+\begin{lstlisting}
+onetwoThree       = [1,2,3]
+oneToTen          = [1 .. 10]
+oneToTenInterval2 = [0,2 .. 10]
+inf               = [0, ..]
+thankYou          = ['D','a','n','k','e']
+capitalABCDE      = ['A' .. 'E']
+\end{lstlisting}
+
+As you can see in line 1, list is expressed comma-separated elements in a parentheses. 
+
+If you want to make a sequence of number, then you use two dots in the middle of the first and the last number
+ (see line 2). 
+
+When you create a list of numbers at the regular intervals, you write the first element as the initial number 0 and next element 2 splitted by a comma from the initial one (line 3). 
+Then Haskell infers that ummmm, 0, 2.., and then the series must be 4, 6, 8, 10.
+
+Surprisingly, Haskell can realise the infinite number of elements in a list (line 4). 
+You might think that if it is done, the program does not stop. 
+However, Haskell is lazy, meaning that element is only called when they are required. 
+So Haskell program stops even though the infinite number of elements are used in a list.
+
+Like line 1, a list of characters can be created (line 5).
+
+Like line 2, a list of characters can be made sequentially. 
+   
+Note that this works differently from line 5.
+\begin{lstlisting}
+thankYou2 = ["D","a","n","k","e"]
+\end{lstlisting}
+
+This is because string " " is a list of characters ' '. 
+That is, \lstinline{"Danke"} is equal to \lstinline{['D', 'a', 'n', 'k', 'e']}. The relation is like this:
+\lstinline{"A" == 'A' : []}
+
+Also, string can be appended:
+\begin{lstlisting}
+Prelude> 'B' : ['D','a','n','k','e']
+"BDanke"
+\end{lstlisting}
+
+The following implementations, however, did not work:
+\begin{lstlisting}
+Prelude> ['D','a','n','k','e'] : 'B'
+
+<interactive>:59:25: error:
+   Couldn't match expected type '[[Char]]' with actual type 'Char'
+   In the second argument of '(:)', namely ''B''
+   In the expression: ['D', 'a', 'n', 'k', ....] : 'B'
+   In an equation for 'it': it = ['D', 'a', 'n', ....] : 'B'
+\end{lstlisting}
+
+\begin{lstlisting}
+Prelude> 'bitte' : ['D','a','n','k','e']
+
+<interactive>:55:1: error:
+    Syntax error on 'bitte'
+    Perhaps you intended to use TemplateHaskell or TemplateHaskellQuotes
+    In the Template Haskell quotation 'bitte'
+\end{lstlisting}
+
+See more: \href{https://wiki.haskell.org/Learn_Haskell_in_10_minutes#Simple_types}{''here''}
+
+\subsection{Joint lists}
+It’s easy to connect two lists
+\begin{lstlisting}
+[1,2,3] ++ [3,4,5]
+-- => [1,2,3, 3,4,5]
+['A', 'B', 'C'] ++ ['D','E','F']
+-- => ['A', 'B', 'C', 'D','E','F']
+\end{lstlisting}
+
+\subsection{List comparison}
+If you want to compare two lists via the operators >, <, >=, <=, you can write 
+\begin{lstlisting}
+oneTwo = [1, 2]
+threeFour= [3,4]
+
+oneTwo > threeFour -- False
+oneTwo < threeFour -- True
+oneTwo >= threeFour -- False
+oneTwo >= threeFour -- True
+\end{lstlisting}
+
+Each element in a list is compared with each in the other list. If at least one element satisfies an operator, True is returned. If all elements in a list do not, False is returned. 
+
+\subsection{Set (list) comprehension}
+
+\subsection{Tupule}
+Not written 
+\begin{lstlisting}
+(a,b)
+\end{lstlisting}
+
+\subsection{If-statement}
+
+\subsection{Function}
+
+\subsection{Recursive function}
+As an example, let’s make a function for factorial for any number:
+
+\begin{lstlisting}
+module Main where
+
+factorial n = if n == 0 then 1 else n * factorial (n-1)
+
+main = do putStrLn "what number you wanna factorise"
+          x <- readLn
+          print (factorial x)
+\end{lstlisting}
+\begin{itemize}
+	\item \lstinline{module Main where} indicates the explicit definition of main. Even if you don't write the line, it works as well. (See \href{https://stackoverflow.com/questions/11112371/to-write-or-not-to-write-module-main-where-in-haskell}{'here'})
+	\item \lstinline{factorial n} is defined recurrently.  That is, factorial \lstinline{n} refers to factorial \lstinline{n-1}, which to factorial \lstinline{n-2}, …, and finally factorial \lstinline{1} to factorial \lstinline{0}.  
+\end{itemize}
+
+At this point, the recurrence is stopped because of no references in the expression if n == 0 then 1. 
+It must be noted that else must be required in any function expression includeing if-statement, 
+so that any function returns something whenever.
+
+You can define factorial via this simpler way instead:
+\begin{lstlisting}
+factorial 0 = 1
+factorial n = n * factorial (n-1)
+Or you can use 
+factorial n
+    | n == 0 = 1
+    | n > 0 = n*factorial' (n-1)
+\end{lstlisting}
+where | works if expression (e.g. n==0 ) is True, then the R.H.S (e.g. = 1) is carried out.   
+
+Let’s execute by typing \lstinline{./fac}:
+\begin{lstlisting}
+what number you wanna factorise
+4
+24
+\end{lstlisting}
+
+Note that when you do \lstinline{ghci fac.hs} or \lstinline{:l fac.hs} after entering the interactive shell, you’ll be able to use \lstinline{factorial n} in the interactive interpreter like a built-in function. 
+
+Note that most impressive languages express functions like \lstinline{foo()} or \lstinline{f(x)}. Haskell, however, does \lstinline{foo} and \lstinline{f x}, and it adds just space after the function name.
+
+Here is an extra example showing common pattern when writing functions. 
+\begin{lstlisting}
+doubleUs x y = doubleMe x + double y
+doubleMe x = x*x 
+\end{lstlisting}
+
+Note that the serial order of doubleUs and doubleMe can be exchanged.
+One might write this down like:
+\begin{lstlisting}
+doubleUs x y = x*x + y*y
+\end{lstlisting}
+
+, but this sounds not smart. If you want to do \lstinline{x*x*x + y*y*y} instead, you’ve got to modify the two terms in doubleUs, and this may not be simpler than former case. You should add \lstinline{tripleMe x = x*x*x} instead.
+
+The last example.
+\begin{lstlisting}
+doubleSmallNumber x = if x > 100 then x else x*2
+If you want to add the returned value, then you can write
+doubleSmallNumber x = (if x > 100 then x else x*2)+1
+\end{lstlisting}
+
+Understand pattern matching via head function
+
+\begin{lstlisting}
+head' :: [a] -> a
+head' [] = error "empty list"
+head' (x:_) = x
+\end{lstlisting}
+
+The first line shows that head' function takes a single list and returns a single variable. 
+The second and third lines indicate, respectively, 
+that the function returns error if the list is empty and that it returns the first element in the list if otherwise. 
+\lstinline{_} is one of the patterns matching expressions, indicating the rest of the element. 
+Note that the parenthesis of \lstinline{x:_} is used when each of the elements is bound.
+
+Get used to recursive function by hand-made maximum and sorting functions...[not yet]
+
+\subsection{\lstinline{let} and \lstinline{case}}
+Here’s an example:
+
+\begin{lstlisting}
+module Main where
+
+sec_to_hour sec = let minite = 60
+                    hour = 3600
+                    in  sec / hour
+
+main = do putStrLn "What sec you wanna convert to hour?"
+           x <- readLn
+           print (sec_to_hour x, "Hours")
+\end{lstlisting}
+
+\lstinline{let} indicates temporary variables in the operation "sec/hour". 
+\begin{lstlisting}
+module Main where
+
+classify age = case age of 0 -> "newborn"
+                              1 -> "infant"
+                              2 -> "toddler"
+                              _ -> "senior citizen"
+
+main = do print ("type age")
+           x <- readLn
+           print (classify x)
+\end{lstlisting}
+
+\lstinline{case} is a multiple-way branch and \lstinline{_} indicates "anything else", which is like a pattern matching??
+
+\subsection{Declare data types}
+Haskell infers type of variables by default, so we do not have to declare beforehand. 
+However, it would be helpful to understand how type is defined and works in order to utilise functions and expressions without compile errors, which could occur because of the lack of the knowledge of types.
+
+Type of expressions
+I show examples and let you understand what type each expression possesses. To do so, GHCI is useful to show types, so let’s go into it.
+
+Fist, we see the type of 'a' by using\lstinline{: t}, which returns a type of expression or function. 
+\begin{lstlisting}
+Prelude> :t 'a'
+'a' :: Char
+\end{lstlisting}
+
+Remember that \lstinline{::} means “has the type of”, and thus it indicates that '\lstinline{a}' has the type of \lstinline{Char}.
+
+The case of "Hello" returns
+\begin{lstlisting}
+Prelude> :t "Hello"
+"Hello" :: [Char]
+\end{lstlisting}
+
+"\lstinline{Hello}" has the type of \lstinline{[Char]}, that is, \lstinline{String}.
+
+How about True?
+\begin{lstlisting}
+Prelude> :t True
+True :: Bool
+\end{lstlisting}
+True has the type of Bool.
+
+Tuple of Bool and String returns:
+\begin{lstlisting}
+Prelude> :t (True, "Hello")
+(True, "Hello") :: (Bool, [Char])
+\end{lstlisting}
+
+\begin{lstlisting}
+Prelude> :t 1
+1 :: Num p => p
+
+Prelude> :t 1.2
+1.2 :: Fractional p => p
+\end{lstlisting}
+
+\subsection{Type classes}
+It is like an interface that defines behaviour, so in this sense, I think that it is similar to Class in Object-oriented programming language like python. The difference, I think, is that type classes do not have properties. 
+
+Let’s see what it looks like via GHCI.
+\begin{lstlisting}
+Prelude> :t (==)
+(==) :: Eq a => a -> a -> Bool
+\end{lstlisting}
+
+It takes two arguments and returns Bool. Now, you found a new symbol => called class constraint that indicates the two arguments must be a member of Eq class, which is one of the type classes and is applied in all of the functions related to equal statement.
+
+\subsection{Type of functions}
+Let’s understand how it is used via an example.
+\begin{lstlisting}
+removeNonUppercase :: [Char] -> [Char]
+removeNonUppercase st = [c | c<- st, c `elem` ['A'..'Z'] ]
+\end{lstlisting}
+
+The first line indicates that the function maps \lstinline{[Char]} into \lstinline{[Char]}, 
+so \lstinline{->} means map, 
+and the second line is the list comprehension in that \lstinline{String} (or \lstinline{[Char]}) is extracted and returns \lstinline{String} if \lstinline{c} is in \lstinline{st} and \lstinline{c} is in \lstinline{['A'..'Z']}. 
+Note that the first line does not work in GHCI. 
+(Any expression and function seem not to be defined in GHCI in such way.)
+
+\paragraph{\lstinline{head} }
+
+\begin{lstlisting}
+You should also check some built-in functions via: t in GHCI.
+Prelude> :t head
+head :: [a] -> a
+\end{lstlisting}
+
+You think what a is. The a means any type. So, this function takes a single list of any type and return any type.
+
+\paragraph{\lstinline{fst}}
+
+\begin{lstlisting}
+Prelude> :t fst
+fst :: (a, b) -> a
+fst takes a tuple of two elements and return the first element.
+\end{lstlisting}
+
+\paragraph{\lstinline{map}}
+\begin{lstlisting}
+Prelude> :t map
+map :: (a -> b) -> [a] -> [b]
+\end{lstlisting}
+
+Map takes two arguments (a->b) and [a] and returns [b]. a is an element in [a], so a is taken as an argument of a function that returns b. This is done for all of the element in [a], returning [b].
+
+\paragraph{{\lstinline{show}}}
+\begin{lstlisting}
+Prelude> :t show
+show :: Show a => a -> String
+\end{lstlisting}
+
+\lstinline{a} that is imposed on \lstinline{Show} class constraint is taken by this function, returning \lstinline{String}. Show is useful if you want to convert any number into String.
+
+\paragraph{\lstinline{read}}
+This is the opposite to \lstinline{Show}
+\begin{lstlisting}
+Prelude> :t read
+read :: Read a => String -> a
+\end{lstlisting}
+
+It takes String and returns any type with the \lstinline{Read} class constraint.  

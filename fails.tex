@@ -1,0 +1,14 @@
+\section{Things which I got stuck to}
+Case 1: Variable was not defined correctly
+\begin{lstlisting}
+x :: Int
+main = print ("tes")
+
+[1 of 1] Compiling Main             ( verify.hs, verify.o )
+
+verify.hs:2:1: error:
+    The type signature for 'x' lacks an accompanying binding
+  |
+2 | x :: Int
+  | ^
+\end{lstlisting}

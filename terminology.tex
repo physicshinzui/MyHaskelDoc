@@ -1,0 +1,53 @@
+\section{Terminology}
+Technical terms often used in Haskell
+
+\paragraph{Top level (global) variable}
+Define before \lstinline{main}
+
+\begin{lstlisting}
+x=1
+main = do print (x) 
+\end{lstlisting}
+
+\paragraph{Local variable}
+Define after \lstinline{where}
+\begin{lstlisting}
+main = do 
+    print (x)
+    where 
+        x = 1
+\end{lstlisting}
+
+Or define in \lstinline{let}
+\begin{lstlisting}
+main = do
+    let x = 1 
+    print (x)
+\end{lstlisting}
+
+\paragraph{Prefix, Infix Function} 
+Prefix function is the one which takes arguments/variables after the function name, 
+e.g., \lstinline{f x = x*2}. 
+
+Infix function is the one which takes those before and after the function name, 
+e.g.,  \lstinline{4 `elem` [2,4,6]} and \lstinline{91 `div` 10}, which can also written by \lstinline{elem 4 [2,4,6]}  and \lstinline{div 91 10}, 
+but said not not to be sweet in Haskell [cite XXX] because it is ambiguous how the function works from which to which. 
+By the way, div returns integral division of divided value. 
+
+The basic operators  \lstinline{+, -, *, /} are also infix functions.
+
+\paragraph{Syntax sugar}
+Syntax sugar means an easier way to express codes. Let’s say a list in Haskell is expressed as  
+\lstinline{[1,2,3,4]} which is a syntax sugar for \lstinline{1:2:3:4:[]}. Also, function expression does have also syntax sugar like \lstinline{f x y = x*y} as sugar for 
+\begin{lstlisting}
+f = \x y -> x*y
+f = \x -> \y -> x*y
+\end{lstlisting}
+
+Syntax sugar is explained in  \href{https://en.wikibooks.org/wiki/Haskell/Syntactic_sugar#Function_Bindings}{'here'}
+\paragraph{Currying [fixme]}
+
+Currying is explained here:
+\href{https://wiki.haskell.org/Currying}{Currying}
+
+\paragraph{Referential transparency [fixme]}

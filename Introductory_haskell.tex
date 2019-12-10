@@ -1,0 +1,66 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+% For code block representation
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Haskell,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%SetFonts
+
+%SetFonts
+
+\title{Introductory Haskell}
+\author{Shinji Iida}
+\date{\today}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+%\begin{lstlisting}
+%\end{lstlisting}
+
+\section{Introduction}
+I owe these lecture notes for learning Haskell:
+\href{http://www.cis.upenn.edu/~cis194/spring13/lectures.html}{'Lecture notes'}
+and 
+\href{https://wiki.haskell.org/Learn_Haskell_in_10_minutes#Simple_types}{'Haskell in 10 minitues'}
+
+
+\input{basics.tex}
+\section{Practice}
+\input{practice.tex}
+
+\input{fails.tex}
+\input{terminology.tex}
+\end{document}
+
+
