@@ -32,3 +32,22 @@ fizzBuzz' intList = map (fizzBuzz) intList
 main = do
     let x = [1..100] in print $ fizzBuzz' x
  \end{lstlisting}
+ 
+\subsection{Random number}
+We can use \lstinline{System.Random} library \footnote{This library is not good for cryptograph for which we should use \lstinline{Crypto.Random}. Also, someone said that it has some performance issues.}  to generate random numbers.
+
+\begin{itemize}
+\item \lstinline{mkStdGen}: returns a generator that was set when opened
+\item \lstinline{getStdGen}: same?
+\item \lstinline{newStdGen}: returns a new generator.
+\item \lstinline{randomR}: Take two arguments \lstinline{(min,max)} and a generator \lstinline{g} from \lstinline{g <- mkStdGen or getStdGen}. It returns a random number.
+\item \lstinline{randomRs}: the same arguments, but returns a list of random numbers.
+\end{itemize}
+
+\paragraph{Example: Print five random numbers}
+
+\begin{lstlisting}
+import System.Random
+main =  do x <- newStdGen
+	        print $ take 5 $ randomRs (0,10) x 
+\end{lstlisting}

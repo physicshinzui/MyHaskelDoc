@@ -21,15 +21,17 @@
 \contentsline {subsection}{\numberline {2.19}Type of functions}{9}{subsection.2.19}% 
 \contentsline {paragraph}{\lstinline {head} }{9}{lstlisting.-34}% 
 \contentsline {paragraph}{\lstinline {fst}}{9}{lstlisting.-35}% 
-\contentsline {paragraph}{\lstinline {map}}{9}{lstlisting.-36}% 
+\contentsline {paragraph}{\lstinline {map}}{10}{lstlisting.-36}% 
 \contentsline {paragraph}{{\lstinline {show}}}{10}{lstlisting.-37}% 
 \contentsline {paragraph}{\lstinline {read}}{10}{section*.6}% 
 \contentsline {section}{\numberline {3}Practice}{10}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Random number}{11}{subsection.3.1}% 
+\contentsline {paragraph}{Example: Print five random numbers}{11}{lstlisting.-40}% 
 \contentsline {section}{\numberline {4}Things which I got stuck to}{11}{section.4}% 
-\contentsline {section}{\numberline {5}Terminology}{11}{section.5}% 
-\contentsline {paragraph}{Top level (global) variable}{11}{section*.7}% 
-\contentsline {paragraph}{Local variable}{11}{section*.8}% 
-\contentsline {paragraph}{Prefix, Infix Function}{12}{section*.9}% 
-\contentsline {paragraph}{Syntax sugar}{12}{section*.10}% 
-\contentsline {paragraph}{Currying [fixme]}{12}{section*.11}% 
-\contentsline {paragraph}{Referential transparency [fixme]}{12}{section*.12}% 
+\contentsline {section}{\numberline {5}Terminology}{12}{section.5}% 
+\contentsline {paragraph}{Top level (global) variable}{12}{section*.8}% 
+\contentsline {paragraph}{Local variable}{12}{section*.9}% 
+\contentsline {paragraph}{Prefix, Infix Function}{12}{section*.10}% 
+\contentsline {paragraph}{Syntax sugar}{13}{section*.11}% 
+\contentsline {paragraph}{Currying [fixme]}{13}{section*.12}% 
+\contentsline {paragraph}{Referential transparency [fixme]}{13}{section*.13}% 
